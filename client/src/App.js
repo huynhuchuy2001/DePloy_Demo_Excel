@@ -73,7 +73,6 @@ function App() {
     await axios.post("http://localhost:5001/import/monthi", { ...monthi })
     alert("ban da nhap data mon thi thanh cong");
   };
-  console.log(monthi);
   return (
     <div className = "">
       <div className = "text">
