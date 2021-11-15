@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-script": "^2.0.5",
+    "start": "^5.1.0",
+    "yarn": "^1.22.17"
+  }
+}
