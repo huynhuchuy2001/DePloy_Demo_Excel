@@ -10,7 +10,8 @@ const MonThiSchema = new Schema({
     HeDT : String,
     ChuongTrinh : String,
     DoViToChuc : String,
-    ToKiem : String,
-    SoLuong : Number
+    ToKiem : Number,
+    SoLuong : Number,
+    MaKhoa : String
 })
 module.exports = mongoose.model('monthi',MonThiSchema);

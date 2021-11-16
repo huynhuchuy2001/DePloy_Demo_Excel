@@ -6,9 +6,10 @@ const importCtrl = {
                 if (req.body.hasOwnProperty(key)) {
                     item = req.body[key];
                     const newGiangVien = new GiangVien({
-                      hoten : item.__EMPTY,
-                      magv : item.__EMPTY_2,
-                      email : item.__EMPTY_4
+                        HoTen : item.__EMPTY,
+                        MaVC : item.__EMPTY_1,
+                        Email : item.__EMPTY_2,
+                        MaKhoa : item.__EMPTY_3
                     })
                     await newGiangVien.save();
                   }
