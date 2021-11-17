@@ -9,7 +9,7 @@ const importCtrl = {
                         HoTen : item.__EMPTY,
                         MaVC : item.__EMPTY_1,
                         Email : item.__EMPTY_2,
-                        MaKhoa : item.__EMPTY_3
+                        // MaKhoa : item.__EMPTY_3
                     })
                     await newGiangVien.save();
                   }

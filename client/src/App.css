@@ -41,8 +41,8 @@
 }
 .text{
   border-radius: 5px 5px 5px 5px;
-  width: 30%;
-  margin-left: 30%;
+  width: 20%;
+  margin-left: 40%;
   background-color: #61dafb;
   margin-top: 10%;
   text-align: center;
@@ -52,9 +52,25 @@
 }
 .textt{
   border-radius: 5px 5px 5px 5px;
-  width: 30%;
-  margin-left: 30%;
+  width: 20%;
+  margin-left: 40%;
   background-color: #61dafb;
   margin-top: 10%;
   text-align: center;
+}
+.login{
+  border-radius: 5px 5px 5px 5px;
+  width: 20%;
+  height: 100px;
+  margin-left: 40%;
+  background-color: #61dafb;
+  margin-top: 10%;
+  text-align: center;
+}
+.texttt {
+  margin-bottom: 5px;
+  color: red;
+}
+.logout{
+  margin-left: 15px;
 }
