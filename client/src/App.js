@@ -7,16 +7,16 @@ import { GoogleLogout } from 'react-google-login';
 function App() {
   const [giangvien, setgiangvien] = useState([]);
   const [monthi, setmonthi] = useState([]);
-  const [user,setUser] = useState({
+  const [users,setusers] = useState({
     firstName : '',
     lastName : '',
-    userName : '',
+    fullName : '',
     email : '',
     Google_ID : '',
     image : '',
     accessToken : '',
     token_ID : ''
-  })
+  });
   // read excel import from giangvien
   const readExcel = (file) => {
     const promise = new Promise((resolve, reject) => {
@@ -77,37 +77,42 @@ function App() {
   const Import = async (e) => {
     e.preventDefault()
     await axios.post("http://localhost:5000/import/giangvien", { ...giangvien })
-    alert("ban da nhap data giang vien thanh cong");
+    alert("Bạn đã nhập data giảng viên thành công");
   };
   // post to collection monthi
   const Importt = async (e) => {
     e.preventDefault()
     await axios.post("http://localhost:5000/import/monthi", { ...monthi })
-    alert("ban da nhap data mon thi thanh cong");
+    alert("Bạn đã nhập data môn thi thành công!");
   };
+  // định dạng email
+  var reg = /^([0-9]{13})+@student.tdmu.edu.vn$/i;
   const CreateUser = async (e) =>{
     e.preventDefault();
-    await axios.post("http://localhost:5000/import/user",{...user});
-    alert("Ban da dang nhap thanh cong!");
-  } 
+    if(reg.test(users.email)===true)
+    {
+      await axios.post("http://localhost:5000/import/user",{...users});
+      alert("Bạn đã đăng nhập thành công!");
+    }
+    else{
+      alert("Email của bạn không tồn tại trong cơ sở dữ liệu. Xin vui lòng đăng nhập lại!")
+    }
+  }
   // setUser response login with google
   const responseGoogle = (response) => {
-    setUser({
+    setusers({email : response.profileObj.email,
+      fullName : response.profileObj.name,
       firstName : response.profileObj.familyName,
       lastName : response.profileObj.givenName,
-      fullName : response.profileObj.name,
-      email : response.profileObj.email,
       Google_ID : response.profileObj.googleId,
       image : response.profileObj.imageUrl,
-      accessToken : response.Zb.access_token,
-      token_ID : response.tokenId
-    })
-    // console.log(response)
+      accessToken : response.accessToken,
+      token_ID : response.tokenObj.id_token
+    });
   };
   // clear console when logout
   const logout = () =>{
     alert("Logout Successfully!");
-    console.clear();
   }
   return (
     <div className = "">
@@ -158,6 +163,7 @@ function App() {
             clientId="843229411433-dce21ks6062giislln1ndmer3voocdfp.apps.googleusercontent.com"
             buttonText="Logout"
             onLogoutSuccess={logout}
+            isSignedIn={false}
           >
           </GoogleLogout>
           <form onSubmit = {CreateUser}>

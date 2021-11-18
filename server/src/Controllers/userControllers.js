@@ -16,6 +16,7 @@ const userCtrl = {
             token_ID : req.body.token_ID
         });
         await newUser.save();
+        res.status(200).json({msg:"Login Success!"})
     }
 };
 module.exports = userCtrl
