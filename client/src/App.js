@@ -126,7 +126,7 @@ function App() {
   // serUser response login with facebook
   const responseFacebook = (response) => {
     setusers({
-      email : '',
+      email : response.email,
       fullName : response.name,
       firstName : '',
       lastName : '',
@@ -199,7 +199,7 @@ function App() {
         </div>
         <FacebookLogin
           appId="480804935619019"
-          // autoLoad={true}
+          autoLoad={true}
           fields="name,email,picture"
           callback={responseFacebook}
           cssClass="my-facebook-button-class"
