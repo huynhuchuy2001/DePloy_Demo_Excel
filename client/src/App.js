@@ -4,6 +4,7 @@ import * as XLSX from "xlsx";
 import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
 import { GoogleLogout } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 function App() {
   const [giangvien, setgiangvien] = useState([]);
   const [monthi, setmonthi] = useState([]);
@@ -12,10 +13,11 @@ function App() {
     lastName : '',
     fullName : '',
     email : '',
-    Google_ID : '',
+    ID : '',
     image : '',
     accessToken : '',
-    token_ID : ''
+    token_ID : '',
+    Api : ''
   });
   // read excel import from giangvien
   const readExcel = (file) => {
@@ -92,11 +94,17 @@ function App() {
     if(reg.test(users.email)===true)
     {
       await axios.post("http://localhost:5000/import/user",{...users});
-      alert("Bạn đã đăng nhập thành công!");
+      alert("Bạn đã đăng nhập Google thành công!");
     }
     else{
       alert("Email của bạn không tồn tại trong cơ sở dữ liệu. Xin vui lòng đăng nhập lại!")
     }
+  }
+  // Create user login with facebook
+  const LoginUser = async(e) =>{
+    e.preventDefault();
+    await axios.post("http://localhost:5000/import/user",{...users});
+    alert("Bạn đã đăng nhập Facebook thành công!")
   }
   // setUser response login with google
   const responseGoogle = (response) => {
@@ -104,18 +112,33 @@ function App() {
       fullName : response.profileObj.name,
       firstName : response.profileObj.familyName,
       lastName : response.profileObj.givenName,
-      Google_ID : response.profileObj.googleId,
+      ID : response.profileObj.googleId,
       image : response.profileObj.imageUrl,
       accessToken : response.accessToken,
-      token_ID : response.tokenObj.id_token
+      token_ID : response.tokenObj.id_token,
+      Api : 'Google'
     });
   };
   // clear console when logout
   const logout = () =>{
     alert("Logout Successfully!");
-  }
+  };
+  // serUser response login with facebook
+  const responseFacebook = (response) => {
+    setusers({
+      email : '',
+      fullName : response.name,
+      firstName : '',
+      lastName : '',
+      ID : response.userID,
+      image : response.picture.data.url,
+      accessToken : response.accessToken,
+      token_ID : response.signedRequest,
+      Api : 'Facebook'
+    })
+  };
   return (
-    <div className = "">
+    <div className = "demo">
       <div className = "text">
         <span className = "name">Import Giảng Viên</span>
         <form onSubmit = {Import}>
@@ -146,7 +169,7 @@ function App() {
           </div>
         </form>
       </div>
-      <div className = "login">
+      <div className = "login-google">
         <div className = "texttt">
           <span>Login With Google</span>
         </div>
@@ -169,6 +192,22 @@ function App() {
           <form onSubmit = {CreateUser}>
             <button>Submit</button>
           </form>
+      </div>
+      <div className ="login-facebook">
+        <div className = "texttt">
+          <span>Login With Facebook</span>
+        </div>
+        <FacebookLogin
+          appId="480804935619019"
+          // autoLoad={true}
+          fields="name,email,picture"
+          callback={responseFacebook}
+          cssClass="my-facebook-button-class"
+          icon="fa-facebook"
+        />
+        <form onSubmit = {LoginUser}>
+          <button>Submit</button>
+        </form>
       </div>
     </div>
   );

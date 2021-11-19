@@ -6,12 +6,12 @@ const userSchema = new Schema({
     fullName : String,
     email : {
         type : String,
-        required : true,
         unique : true
     },
-    Google_ID : String,
+    ID : String,
     image : String,
     accessToken : String,
-    token_ID : String
+    token_ID : String,
+    Api : String
 })
 module.exports = mongoose.model('user',userSchema);
